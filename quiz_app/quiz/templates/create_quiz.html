@@ -1,11 +1,30 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create</title>
+    <link rel="stylesheet" href=" {% static 'css/create_quiz.css' %} ">
 </head>
 <body>
-    <h1>Create Page</h1>
+    <h1>Create Quiz</h1>
+
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+
+        <div class="password__container">
+            <label for="password">Enter password for quiz : </label>
+            <input type="text" id="password" name="password" required>
+        </div>
+
+        <div class="questions__container">
+            {% include 'includes/question_box.html' %}
+        </div>
+        <button type="button" class="addBtn">Add Question</button>
+    </form>
+
+    <script src=" {% static 'js/create_quiz.js' %} "></script>
 </body>
 </html>

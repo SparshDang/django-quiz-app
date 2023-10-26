@@ -1,0 +1,46 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.password__container{
+    border: 2px solid red;
+    display: flex;
+    gap: 10px;
+    padding: 1rem;
+    margin: 1rem;
+    font-size: 1.3rem;
+}
+
+.password__container > input{
+    flex: 1;
+    font-size: 1.3rem;
+}
+
+.question_box{
+    border: 2px solid red;
+    padding: 1rem;
+    margin: 1rem;
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.question_box input{
+    font-size: 1.3rem;
+}
+
+.options{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+}
+
+.option{
+    display: flex;
+    gap: 5px;
+}
+.option > input[type='text']{
+    flex: 1;
+}

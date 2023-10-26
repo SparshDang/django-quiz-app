@@ -1,16 +1,21 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
-</head>
-<body>
-    <h1>Home Page</h1>
-    <ul>
-        <li> <a href={% url "create" %} >Create new Quiz</a> </li>
-        <li> <a href={% url "take" %} >Take Quiz</a> </li>
-        <li> <a href={% url "result" %} >Check result of quiz</a> </li>
-    </ul>
-</body>
+    <link rel="stylesheet" href=" {% static 'css/index.css' %}" />
+  </head>
+  <body>
+    <main>
+      <h1>Quiz App</h1>
+      <ul>
+        <a href='{% url "create" %}'><li>Create new Quiz</li></a>
+        <a href='{% url "take" %}'> <li>Take Quiz</li></a>
+        <a href='{% url "result" %}'><li>Check result of quiz</li></a>
+      </ul>
+    </main>
+  </body>
 </html>
