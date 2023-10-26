@@ -28,7 +28,7 @@
       {{question.text}} ? 
       {% for choice in question.choices.all %}
         <div class="choice__input">
-            <input type="radio" name="option" value="{{choice.text}}"  />
+            <input type="radio" name="option-{{question.text}}" value="{{choice.text}}"  />
             <label for="option">{{choice.text}}</label>
         </div>
       {% endfor %}
