@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
 
 from django.views import View
@@ -54,7 +56,19 @@ class TakeQuizView(View):
     def get(self, request, **kwargs):
         quizCode = kwargs['code']
         quiz = Quiz.objects.get(code=quizCode)
-        return render(request, "take_quiz.html", {'quiz': quiz})
+        return render(request, "take_quiz.html", {'quiz': quiz, 'is_taken':False})
+    
+    def post(self, request):
+        data = json.loads(request.POST['form__data'])
+        score = 0
+
+        for question in data['questions']:
+            question_instance = Question.objects.get( pk = int(question['question']))
+            if question_instance.choices.get(is_correct=True).text == question.get('choice', None):
+                score += 1
+
+        return render(request, "take_quiz.html", {'is_taken':True, 'score':score, 'total_questions' : len(data['questions'])})
+        
 
 class ResultView(View):
     def get(self, request):

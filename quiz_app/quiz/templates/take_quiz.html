@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,20 +9,38 @@
   </head>
   <body>
     <h1>Quiz</h1>
-    <p>Code : {{quiz.code}}</p>
 
-    <form action="{% url 'take_post' %}" method="post">
+    
+    {% if is_taken %}
+        <h1>Your Score is {{score}}/{{total_questions}}</h1>
+        <p>Go to <a href="{% url 'home' %}">Home</a></p>
+
+    {% else %}
+    <p>Code : {{quiz.code}}</p>
+        
+        
+    <form action="{% url 'take_post' %}" method="post" class="form">
       {% csrf_token %}
+      <input type="hidden" name="form__data" class="form__data">
       <label for="name">Enter your name : </label>
-      <input type="text" id="name" name="name" required/><br />
+      <input type="text" id="name" name="name" required /><br />
       {% for question in quiz.questions.all %} 
-        {{question.text}} ?
-        {% for choice in question.choices.all %}
-            <input type="radio" name="option" />
+      <div class="question" data-id={{question.id}}>
+      {{question.text}} ? 
+      {% for choice in question.choices.all %}
+        <div class="choice__input">
+            <input type="radio" name="option" value="{{choice.text}}"  />
             <label for="option">{{choice.text}}</label>
-        {% endfor %}
+        </div>
       {% endfor %}
-      <button type="submit">Submit</button>
+    </div>
+
+    {% endfor %}
+      <button type="submit" class="subBtn">Submit</button>
     </form>
+    {% endif %}
+
+
+    <script src="{% static 'js/take_quiz.js' %}"></script>
   </body>
 </html>
