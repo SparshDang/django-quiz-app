@@ -11,9 +11,9 @@
 <body>
     <h1>Create Quiz</h1>
 
-    <form action="{% url 'create' %}" method="post">
+    <form action="{% url 'create' %}" method="post" class="create_form">
         {% csrf_token %}
-
+        <input type="hidden" name="data" class="data">
         <div class="password__container">
             <label for="password">Enter password for quiz : </label>
             <input type="text" id="password" name="password" required>
@@ -23,6 +23,7 @@
             {% include 'includes/question_box.html' %}
         </div>
         <button type="button" class="addBtn">Add Question</button>
+        <button type="submit" class="submit">Create Quiz</button>
     </form>
 
     <script src=" {% static 'js/create_quiz.js' %} "></script>
