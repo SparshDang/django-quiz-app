@@ -9,6 +9,15 @@
     <link rel="stylesheet" href=" {% static 'css/create_quiz.css' %} ">
 </head>
 <body>
+
+    
+    {% if created %}
+        <h1>Quiz Created</h1>
+        <p>Code : {{code}}</p>
+        <p>Link : <a href="{%  url 'take' code %}">{{url}}</a></p>
+        <a href="{% url 'home' %}">Go to home page</a>
+    {% else %}
+        
     <h1>Create Quiz</h1>
 
     <form action="{% url 'create' %}" method="post" class="create_form">
@@ -25,6 +34,8 @@
         <button type="button" class="addBtn">Add Question</button>
         <button type="submit" class="submit">Create Quiz</button>
     </form>
+    {% endif %}
+
 
     <script src=" {% static 'js/create_quiz.js' %} "></script>
 </body>

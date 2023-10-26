@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Take Quiz</title>
-</head>
-<body>
-    <h1>Take Quiz</h1>
-</body>
+  </head>
+  <body>
+    <h1>Quiz</h1>
+    <p>Code : {{quiz.code}}</p>
+
+    <form action="{% url 'take_post' %}" method="post">
+      {% csrf_token %}
+      <label for="name">Enter your name : </label>
+      <input type="text" id="name" name="name" required/><br />
+      {% for question in quiz.questions.all %} 
+        {{question.text}} ?
+        {% for choice in question.choices.all %}
+            <input type="radio" name="option" />
+            <label for="option">{{choice.text}}</label>
+        {% endfor %}
+      {% endfor %}
+      <button type="submit">Submit</button>
+    </form>
+  </body>
 </html>

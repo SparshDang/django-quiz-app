@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.contrib.sites.shortcuts import get_current_site
 
 from django.views import View
 import json
@@ -10,8 +9,6 @@ import random
 from quiz.models import *
 
 # Create your views here.
-
-
 class HomeView(View):
     def get(self, request):
         return render(request, "home.html")
@@ -19,7 +16,7 @@ class HomeView(View):
 
 class CreateQuizView(View):
     def get(self, request):
-        return render(request, "create_quiz.html")
+        return render(request, "create_quiz.html", {'created':False})
 
     def post(self, request):
 
@@ -28,7 +25,9 @@ class CreateQuizView(View):
         data = json.loads(json_data)
         quiz = self.__generate_quiz(password)
         self.__set_questions(quiz, data)
-        return HttpResponseRedirect(reverse('home'))
+        url = get_current_site(request).domain + '/' + quiz.code
+        return render(request, "create_quiz.html", {'created':True, 'code':quiz.code, 'url':url})
+
 
     def __generate_quiz(self, password):
         code = self.__generate_quiz_code()
@@ -52,9 +51,10 @@ class CreateQuizView(View):
 
 
 class TakeQuizView(View):
-    def get(self, request):
-        return render(request, "take_quiz.html")
-
+    def get(self, request, **kwargs):
+        quizCode = kwargs['code']
+        quiz = Quiz.objects.get(code=quizCode)
+        return render(request, "take_quiz.html", {'quiz': quiz})
 
 class ResultView(View):
     def get(self, request):
