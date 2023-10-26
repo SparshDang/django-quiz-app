@@ -8,5 +8,45 @@
 <body>
     <h1>Result</h1>
     
+    {% if is_showing %}
+    {% if responses %}
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+
+            {% for response in responses  %}
+                <tr>
+                    <td>{{response.name}}</td>
+                    <td>{{response.score}}</td>
+                </tr>
+            {% endfor %}
+                
+        </table>
+        {% else %}
+        <h3>No Responses</h3>
+        {% endif %}
+        <p>Go to <a href="{% url 'home' %}">Home</a></p>
+    {% else %}
+        
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="code">Code : </label>
+        <input type="text" name=code>
+        <label for="password">Password : </label>
+        <input type="text" name=password>
+        <button type="submit">Show Response</button>
+    </form>
+    
+    {% if has_errors %}
+        <p>Code or password invalid</p>
+    {% endif %}
+        
+
+    {% endif %}
+
+    
 </body>
 </html>

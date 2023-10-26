@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
@@ -74,4 +74,16 @@ class TakeQuizView(View):
 
 class ResultView(View):
     def get(self, request):
-        return render(request, "see_result.html")
+        return render(request, "see_result.html", {'is_showing':False, 'has_errors':False})
+    
+    def post(self, request):
+        data = request.POST
+        try:
+            quiz = get_object_or_404(Quiz, code=data['code'])
+            if quiz.password == data['password']:
+                responses = quiz.responses.all()
+            else:
+                raise ValueError("Password wrong")
+            return render(request, "see_result.html", {'is_showing':True, "responses" : responses})
+        except:
+            return render(request, "see_result.html", {'is_showing':False, "has_errors" : True})
