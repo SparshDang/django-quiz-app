@@ -67,6 +67,8 @@ class TakeQuizView(View):
             if question_instance.choices.get(is_correct=True).text == question.get('choice', None):
                 score += 1
 
+        quiz = Quiz.objects.get(pk=int(data['id']))
+        Response.objects.create(quiz=quiz, score=score, name=data['name'])
         return render(request, "take_quiz.html", {'is_taken':True, 'score':score, 'total_questions' : len(data['questions'])})
         
 

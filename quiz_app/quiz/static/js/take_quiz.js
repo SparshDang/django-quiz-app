@@ -16,10 +16,10 @@ subBtn?.addEventListener(
                 data.push(question_data);
             }
         )
-        console.log(data)
         let form__data = {
             "questions":data,
             "name":name.value,
+            'id':form.dataset.quiz
         }
 
         data_element.value = JSON.stringify(form__data);

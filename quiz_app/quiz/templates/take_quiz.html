@@ -17,9 +17,8 @@
 
     {% else %}
     <p>Code : {{quiz.code}}</p>
-        
-        
-    <form action="{% url 'take_post' %}" method="post" class="form">
+
+    <form action="{% url 'take_post' %}" method="post" class="form" data-quiz="{{quiz.id}}" >
       {% csrf_token %}
       <input type="hidden" name="form__data" class="form__data">
       <label for="name">Enter your name : </label>
@@ -41,6 +40,6 @@
     {% endif %}
 
 
-    <script src="{% static 'js/take_quiz.js' %}"></script>
+    <script src="{% static 'js/take_quiz.js' %}" defer ></script>
   </body>
 </html>

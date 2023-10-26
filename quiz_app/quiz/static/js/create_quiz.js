@@ -1,5 +1,5 @@
-let addBtn = document.querySelector(".addBtn");
-let submitBtn = document.querySelector('.submit');
+let addBtn = document?.querySelector(".addBtn");
+let submitBtn = document?.querySelector('.submit');
 
 let form = document.querySelector('.create_form');
 let question_box = document.querySelector('.question_box');
